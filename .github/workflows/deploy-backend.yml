@@ -34,8 +34,8 @@ jobs:
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
             cd ../home/root/api-backend
-            docker stop backendApi || true
-            docker rm backendApi || true
-            docker build -t backendApi-image .
-            docker run -d --name backendApi --network appnet -p 5000:5000 backendApi-image
+            docker stop backendapi || true
+            docker rm backendapi || true
+            docker build -t backendapi-image .
+            docker run -d --name backendapi --network appnet -p 5000:5000 backendapi-image
           EOF
