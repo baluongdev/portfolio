@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  fe:
+    build: .
+    container_name: fe
+    restart: always
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    external: true

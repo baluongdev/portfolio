@@ -1,0 +1,12 @@
+version: '3.8'
+services:
+  be:
+    build: .
+    container_name: be
+    restart: always
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    external: true

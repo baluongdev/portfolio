@@ -1,4 +1,4 @@
-name: Deploy Next.js (Dockerfile only)
+name: Deploy Next.js to VPS
 
 on:
   push:
@@ -7,8 +7,9 @@ on:
       - '.github/workflows/deploy.yml'
   pull_request:
     paths:
-      - 'my-portfolio/**'
+      - 'my-portfolioe/**'
       - '.github/workflows/deploy.yml'
+
 
 jobs:
   deploy:
@@ -34,14 +35,12 @@ jobs:
 
       - name: Copy files to VPS
         run: |
-          rsync -avz --delete --exclude '.git' ./my-portfolio/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app
+          rsync -avz --delete . ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app
 
-      - name: Build & run Dockerfile on VPS
+      - name: Build & run Docker on VPS
         run: |
-          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} '
-            cd /home/${{ secrets.VPS_USER }}/nextjs-app
-            docker stop nextjs-app || true
-            docker rm nextjs-app || true
-            docker build -t nextjs-app-image .
-            docker run -d --name nextjs-app -p 3000:3000 nextjs-app-image
-          '
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+            cd ../home/${{ secrets.VPS_USER }}/nextjs-app
+            docker compose -f docker-compose.yml -f my-portfolio/docker-compose.fe.yml build fe
+            docker compose -f docker-compose.yml -f my-portfolio/docker-compose.fe.yml up -d fe
+          EOF
