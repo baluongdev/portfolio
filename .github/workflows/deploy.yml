@@ -35,16 +35,12 @@ jobs:
 
       - name: Copy files to VPS
         run: |
-          rsync -avz --delete --exclude '.git' ./my-portfolio/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app
-
-      - name: Copy docker-compose.yml
-        run: |
-          rsync -avz ./docker-compose.yml ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app/docker-compose.yml
+          rsync -avz --delete . ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app
 
       - name: Build & run Docker on VPS
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-            cd ../home/${{ secrets.VPS_USER }}/nextjs-app
-            docker compose -f docker-compose.yml -f docker-compose.fe.yml build fe
-            docker compose -f docker-compose.yml -f docker-compose.fe.yml up -d fe
+            cd ../home/root/nextjs-app
+            docker compose down || true
+            docker compose up -d --build
           EOF

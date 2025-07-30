@@ -1,10 +1,24 @@
 version: '3.8'
 services:
+  fe:
+    build: ./fe
+    container_name: fe
+    restart: always
+    networks:
+      - appnet
+
+  be:
+    build: ./be
+    container_name: be
+    restart: always
+    networks:
+      - appnet
+
   nginx:
     image: nginx:alpine
     container_name: nginx
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
     ports:
       - "80:80"
     depends_on:
