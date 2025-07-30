@@ -45,6 +45,6 @@ jobs:
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
             cd ../home/${{ secrets.VPS_USER }}/nextjs-app
-            docker compose -f docker-compose.yml -f my-portfolio/docker-compose.fe.yml build fe
-            docker compose -f docker-compose.yml -f my-portfolio/docker-compose.fe.yml up -d fe
+            docker compose -f docker-compose.yml -f docker-compose.fe.yml build fe
+            docker compose -f docker-compose.yml -f docker-compose.fe.yml up -d fe
           EOF
