@@ -7,7 +7,7 @@ export default function Portfolio() {
       <h1 className="text-3xl font-bold mb-4">Giới thiệu bản thân</h1>
       <p className="mb-6 text-center max-w-xl">
         Xin chào! Mình là Ba, một lập trình viên yêu thích công nghệ và sáng tạo. 
-        Mình thích học hỏi những điều mới và xây dựng các sản phẩm hữu ích cho cộng đồng.
+        Mình thích học hỏi những điều mới và xây dựng các sản phẩm hữu ích cho cộng đồng!
       </p>
       <Image
         src="/images/tenor.gif" // Đặt ảnh cute vào thư mục public với tên này hoặc thay bằng ảnh bạn muốn
