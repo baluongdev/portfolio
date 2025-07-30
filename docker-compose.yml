@@ -1,19 +1,5 @@
 version: '3.8'
 services:
-  fe:
-    build: ./my-portfolio
-    container_name: fe
-    restart: always
-    networks:
-      - appnet
-
-  be:
-    build: ./my-portfolio-backend
-    container_name: be
-    restart: always
-    networks:
-      - appnet
-
   nginx:
     image: nginx:alpine
     container_name: nginx
