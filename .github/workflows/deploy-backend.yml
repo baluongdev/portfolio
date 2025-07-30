@@ -28,7 +28,7 @@ jobs:
 
       - name: Copy files to VPS
         run: |
-          rsync -avz --delete . ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/api-backend
+          rsync -avz --delete --exclude '.git' ./my-portfolio-backend/ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/api-backend
 
       - name: Build & run Docker on VPS
         run: |
