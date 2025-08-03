@@ -1,3 +1,5 @@
+using my_portfolio_backend.Endpoints;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +17,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapUserEndpoints();
 
 var summaries = new[]
 {
