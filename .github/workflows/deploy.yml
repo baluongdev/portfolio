@@ -4,11 +4,11 @@ on:
   push:
     paths:
       - 'docker-compose.yml'
-      - 'github/workflows/deploy.yml'
+      - '.github/workflows/deploy.yml'
   pull_request:
     paths:
       - 'docker-compose.yml'
-      - 'github/workflows/deploy.yml'
+      - '.github/workflows/deploy.yml'
 
 
 jobs:
