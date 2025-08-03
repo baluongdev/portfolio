@@ -9,9 +9,6 @@ COPY . .
 RUN dotnet restore
 RUN dotnet tool install --global dotnet-ef
 ENV PATH="$PATH:/root/.dotnet/tools"
-RUN dotnet ef migrations add InitialCreate --project .
-RUN dotnet ef database update --project .
-
 RUN dotnet publish -c Release -o /app
 
 FROM base AS final
