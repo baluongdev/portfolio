@@ -18,6 +18,21 @@ services:
     ports:
       - "8080:8080"
 
+  postgres:
+    image: postgres:16
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - appnet
+    ports:
+      - "5432:5432"
+
   nginx:
     image: nginx:alpine
     container_name: nginx
@@ -30,6 +45,9 @@ services:
       - be
     networks:
       - appnet
+
+volumes:
+  pgdata:
 
 networks:
   appnet:
