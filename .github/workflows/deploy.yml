@@ -1,4 +1,4 @@
-name: Deploy prj to VPS
+name: Deploy prj to my VPS
 
 on:
   push:
