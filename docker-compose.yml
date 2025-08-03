@@ -6,6 +6,8 @@ services:
     restart: always
     networks:
       - appnet
+    ports:
+      - "3000:3000"
 
   be:
     build: ./my-portfolio-backend
@@ -13,6 +15,8 @@ services:
     restart: always
     networks:
       - appnet
+    ports:
+      - "5000:5000"
 
   nginx:
     image: nginx:alpine
