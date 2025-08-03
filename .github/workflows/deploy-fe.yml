@@ -3,12 +3,10 @@ name: Deploy Next.js to VPS
 on:
   push:
     paths:
-      - '.docker-compose.yml'
-      - 'github/workflows/deploy.yml'
+      - 'my-portfolio/**'
   pull_request:
     paths:
-      - '.docker-compose.yml'
-      - 'github/workflows/deploy.yml'
+      - 'my-portfolioe/**'
 
 
 jobs:
@@ -35,7 +33,7 @@ jobs:
 
       - name: Copy files to VPS
         run: |
-          rsync -avz --delete . ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app
+          rsync -avz --delete ./my-portfolio ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app
 
       
 
@@ -44,6 +42,6 @@ jobs:
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
             cd ../home/root/nextjs-app
             
-            docker compose down || true
-            docker compose up -d --build
+            docker compose down fe nginx || true
+            docker compose up -d fe nginx --build
           EOF
