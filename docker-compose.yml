@@ -16,7 +16,7 @@ services:
     networks:
       - appnet
     ports:
-      - "5000:5000"
+      - "8080:8080"
 
   nginx:
     image: nginx:alpine
