@@ -55,11 +55,9 @@ jobs:
             dotnet build
           EOF
 
-      - name: Run EF database update
+      - name: Run EF database update in backend container
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-            cd /home/${{ secrets.VPS_USER }}/nextjs-app/my-portfolio-backend
-            export PATH="$PATH:/root/.dotnet/tools"
-            dotnet tool install --global dotnet-ef || true
-            dotnet ef database update
+            docker exec be dotnet tool install --global dotnet-ef || true
+            docker exec be dotnet ef database update
           EOF
