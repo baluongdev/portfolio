@@ -33,10 +33,7 @@ jobs:
       - name: Build & run Docker on VPS
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-            cd /home/${{ secrets.VPS_USER }}/nextjs-app/my-portfolio-backend
-            docker build -t my-portfolio-backend .
-            docker network create nextjs-app_appnet || true
-            docker stop be || true
-            docker rm be || true
-            docker run -d --name be --network nextjs-app_appnet -p 5000:5000 my-portfolio-backend
+            cd ../home/root/nextjs-app
+            docker compose down be || true 
+            docker compose up -d be --build
           EOF

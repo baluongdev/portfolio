@@ -37,13 +37,13 @@ jobs:
         run: |
           rsync -avz --delete ./my-portfolio ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app
 
+      
+
       - name: Build & run Docker on VPS
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-            cd /home/${{ secrets.VPS_USER }}/nextjs-app/my-portfolio
-            docker build -t my-portfolio-fe .
-            docker network create nextjs-app_appnet || true
-            docker stop fe || true
-            docker rm fe || true
-            docker run -d --name fe --network nextjs-app_appnet -p 3000:3000 my-portfolio-fe
+            cd ../home/root/nextjs-app
+            
+            docker compose down fe || true
+            docker compose up -d fe --build
           EOF
