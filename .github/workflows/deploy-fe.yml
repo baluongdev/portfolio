@@ -4,9 +4,11 @@ on:
   push:
     paths:
       - 'my-portfolio/**'
+      - '.github/workflows/deploy-fe.yml'
   pull_request:
     paths:
       - 'my-portfolioe/**'
+      - '.github/workflows/deploy-fe.yml'
 
 
 jobs:
@@ -29,18 +31,18 @@ jobs:
 
       - name: Create remote directory if not exists
         run: |
-          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p /home/${{ secrets.VPS_USER }}/nextjs-app"
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p /home/${{ secrets.VPS_USER }}/nextjs-app/my-portfolio"
 
       - name: Copy files to VPS
         run: |
-          rsync -avz --delete ./my-portfolio ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app
+          rsync -avz --delete ./my-portfolio ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app/my-portfolio
 
       
 
       - name: Build & run Docker on VPS
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-            cd ../home/root/nextjs-app
+            cd ../home/root/nextjs-app/my-portfolio
             
             docker compose down fe nginx || true
             docker compose up -d fe nginx --build
