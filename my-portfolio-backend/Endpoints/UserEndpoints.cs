@@ -12,7 +12,9 @@ namespace my_portfolio_backend.Endpoints
                 {
                     new User(1, "Ba", "ba@example.com"),
                     new User(2, "Luong", "long@example.com"),
-                    new User(3, "Dev", "dev@example.com")
+                    new User(3, "Dev", "dev@example.com"),
+                    new User(4, "hobbies", "Study, Coding, Reading"),
+                    new User(5, "Skills", "C#, ASP.NET Core, Docker, React")
                 };
                 return users;
             })
