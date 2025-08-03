@@ -37,3 +37,12 @@ jobs:
             docker compose down be || true 
             docker compose up -d be --build
           EOF
+
+      - name: Run EF database update
+        run: |
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
+            cd /home/${{ secrets.VPS_USER }}/nextjs-app/my-portfolio-backend
+            export PATH="$PATH:/root/.dotnet/tools"
+            dotnet tool install --global dotnet-ef || true
+            dotnet ef database update
+          EOF
