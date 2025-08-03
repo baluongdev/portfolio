@@ -33,7 +33,9 @@ jobs:
       - name: Build & run Docker on VPS
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-            cd ../home/root/nextjs-app
-            docker compose down be || true 
-            docker compose up -d be --build
+            cd /home/${{ secrets.VPS_USER }}/nextjs-app/my-portfolio-backend
+            docker build -t my-portfolio-backend .
+            docker stop be || true
+            docker rm be || true
+            docker run -d --name be --network appnet -p 5000:5000 my-portfolio-backend
           EOF
