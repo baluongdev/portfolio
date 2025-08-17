@@ -31,19 +31,19 @@ jobs:
 
       - name: Create remote directory if not exists
         run: |
-          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p /home/${{ secrets.VPS_USER }}/nextjs-app/my-portfolio"
+          ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} "mkdir -p /home/${{ secrets.VPS_USER }}/fe"
 
       - name: Copy files to VPS
         run: |
-          rsync -avz --delete ./my-portfolio ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/nextjs-app
+          rsync -avz --delete ./my-portfolio ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:/home/${{ secrets.VPS_USER }}/fe
 
       
 
       - name: Build & run Docker on VPS
         run: |
           ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} << 'EOF'
-            cd ../home/root/nextjs-app
+            cd ../home/root/fe
             
-            docker compose down fe || true
-            docker compose up -d fe --build
+            docker compose down || true
+            docker compose up -d --build
           EOF
